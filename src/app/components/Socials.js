@@ -40,7 +40,7 @@ const socialLinks = [
   {
     name: "Instagram",
     handle: "shezar.____x59",
-    url: "https://www.instagram.com/shezar.____x59/",
+    url: "https://www.instagram.com/shezar.dev/",
     icon: <FaInstagram />,
     color: "#E1306C", 
     gradient: "from-purple-500 to-pink-500"
