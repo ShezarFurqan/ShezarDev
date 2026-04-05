@@ -17,7 +17,7 @@ const projects = [
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     ],
     links: {
-      demo: "https://rockclimb.vercel.app/",   
+      demo: "https://www.scarpa.pk//",   
       github: "#", 
     },
   }
