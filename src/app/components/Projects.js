@@ -1,10 +1,26 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { SiReact, SiNextdotjs, SiTailwindcss, SiNodedotjs, SiMongodb, SiFirebase, SiFramer, SiGreensock } from "react-icons/si";
+import { SiReact, SiNextdotjs, SiTailwindcss, SiNodedotjs, SiMongodb, SiFirebase, SiFramer, SiGreensock, SiExpress } from "react-icons/si";
 import ProjectCard from "./ProjectCard";
 
 const projects = [
+    {
+    id: 2,
+    title: "OOTD Designs",
+    category: "E-commerce",
+    description: "ootddesigns is a premium medical apparel store built with Next.js, Firebase, and Tailwind CSS. It offers modern, high-quality scrubs in Pakistan with a powerful admin dashboard for seamless product and order management.",
+    image: "/ootddesigns.png", 
+    tech: [
+      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    ],
+    links: {
+      demo: "ootddesigns.vercel.app/",   
+      github: "https://github.com/ShezarFurqan/OOTDDESIGNS", 
+    },
+  },
   {
     id: 1,
     title: "Scarpa",
@@ -17,10 +33,45 @@ const projects = [
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     ],
     links: {
-      demo: "https://rockclimb.vercel.app/",   
-      github: "#", 
+      demo: "https://scarpa.pk/",   
+      github: "https://github.com/ShezarFurqan/Scarpa.pk", 
     },
-  }
+  },
+    {
+    id: 4,
+    title: "Enchantique Jewelio",
+    category: "E-commerce",
+    description: "Enchantique Jewelio is a luxury jewelry e-commerce store built with React, Express, and Tailwind CSS. It features an elegant storefront and a complete admin panel for order management.",
+    image: "/SS1.png", 
+    tech: [
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Express Js", icon: SiExpress, color: "#FFFFFF" },
+      { name: "Node js", icon: SiNodedotjs, color: "#339933" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    ],
+    links: {
+      demo: "https://github.com/ShezarFurqan/Enchantique-Jewelio",   
+      github: "https://github.com/ShezarFurqan/Enchantique-Jewelio", 
+    },
+  },
+  {
+    id: 3,
+    title: "Snap Flow",
+    category: "Social Media App",
+    description: "Snapflow is a full-stack social media platform built with the MERN stack and Tailwind CSS. It features real-time messaging, dynamic feeds, and an ultra-minimal aesthetic.",
+    image: "/SS2.png", 
+    tech: [
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Express Js", icon: SiExpress, color: "#FFFFFF" },
+      { name: "Node js", icon: SiNodedotjs, color: "#339933" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    ],
+    links: {
+      demo: "https://github.com/ShezarFurqan/Snap-Flow",   
+      github: "https://github.com/ShezarFurqan/Snap-Flow", 
+    },
+  },
+
 
 ];
 
