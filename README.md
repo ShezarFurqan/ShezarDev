@@ -3,7 +3,7 @@
 A high-fidelity, space-themed developer portfolio designed with a modern cosmic aesthetic and rich, fluid animations. This platform serves as the central hub for showcasing premium full-stack applications, interactive user experiences, and advanced frontend engineering capabilities.
 
 ## 🚀 Live Demo
-🔗 **[Explore the Live Portfolio](https://shezardev.vercel.app)**
+🔗 **[Explore the Live Portfolio](https://shezar.dev)**
 
 ---
 
