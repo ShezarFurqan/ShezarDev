@@ -6,7 +6,25 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
     {
-    id: 2,
+    id: 1,
+    title: "Lunora PK",
+    category: "E-commerece",
+    description: "Lunora PK is a modern e-commerce web application for home essentials and self-care products, built with Next.js, Express.js, MongoDB, and Tailwind CSS. It features a responsive shopping experience with custom cart management, WhatsApp support integration, and a streamlined checkout flow tailored for nationwide delivery.",
+    image: "/lunora.png", 
+    tech: [
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Express Js", icon: SiExpress, color: "#FFFFFF" },
+      { name: "Node js", icon: SiNodedotjs, color: "#339933" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    ],
+    links: {
+      demo: "https://www.lunorapk.com/",   
+      github: "https://github.com/ShezarFurqan/LunoraPK", 
+    },
+  },
+
+    {
+    id: 3,
     title: "OOTD Designs",
     category: "E-commerce",
     description: "ootddesigns is a premium medical apparel store built with Next.js, Firebase, and Tailwind CSS. It offers modern, high-quality scrubs in Pakistan with a powerful admin dashboard for seamless product and order management.",
@@ -22,7 +40,7 @@ const projects = [
     },
   },
   {
-    id: 1,
+    id: 4,
     title: "Scarpa",
     category: "E-commerce",
     description: "Scarpa is a modern online shoe store built with Next.js, Firebase, and Tailwind CSS. It offers a seamless shopping experience with order tracking, and multiple payment options.",
@@ -38,7 +56,7 @@ const projects = [
     },
   },
     {
-    id: 4,
+    id: 5,
     title: "Enchantique Jewelio",
     category: "E-commerce",
     description: "Enchantique Jewelio is a luxury jewelry e-commerce store built with React, Express, and Tailwind CSS. It features an elegant storefront and a complete admin panel for order management.",
@@ -55,7 +73,7 @@ const projects = [
     },
   },
   {
-    id: 3,
+    id: 6,
     title: "Snap Flow",
     category: "Social Media App",
     description: "Snapflow is a full-stack social media platform built with the MERN stack and Tailwind CSS. It features real-time messaging, dynamic feeds, and an ultra-minimal aesthetic.",
@@ -71,7 +89,6 @@ const projects = [
       github: "https://github.com/ShezarFurqan/Snap-Flow", 
     },
   },
-
 
 ];
 
