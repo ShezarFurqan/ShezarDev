@@ -1,22 +1,11 @@
-"use client"
-import Navbar from "./components/Navbar";
-import ModernHero from "./components/Hero";
-import AboutMe from "./components/About";
-import SkillsSection from "./components/Skills";
-import ProjectsSection from "./components/Projects";
-import ConnectSection from "./components/Socials";
-import Footer from "./components/Footer";
+import React from 'react'
 
-export default function Home() {
+const page = () => {
   return (
-    <div>
-      <Navbar/>
-      <ModernHero/>
-      <AboutMe/>
-      <SkillsSection/>
-      <ProjectsSection/>
-      <ConnectSection/>
-      <Footer/>
+    <div className='h-[3000px]'>
+      
     </div>
-  );
+  )
 }
+
+export default page

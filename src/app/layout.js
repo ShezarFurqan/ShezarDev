@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import SpaceBackground from "@/components/SpaceBackground";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,9 +20,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} bg-[#000319]  ${geistMono.variable} antialiased`}
-      >
+      <body className="bg-[#000119] text-white relative min-h-screen">
+        {/* Yeh background ab poori website par har page ke peeche fixed rahega */}
+        <SpaceBackground />
+
+        {/* Website ke baaki pages/content yahan render honge */}
         {children}
       </body>
     </html>
