@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import SpaceBackground from "@/components/SpaceBackground";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-[#000119] text-white relative min-h-screen">
+        <Navbar/>
         {/* Yeh background ab poori website par har page ke peeche fixed rahega */}
         <SpaceBackground />
 
