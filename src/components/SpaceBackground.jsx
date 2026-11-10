@@ -1,36 +1,48 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
+// components/SpaceBackground.jsx
+
+// Seeded PRNG: server aur client par same stars (no hydration mismatch)
+function mulberry32(seed) {
+  return function () {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const rand = mulberry32(20260);
+
+const STARS = Array.from({ length: 60 }, (_, i) => ({
+  left: (rand() * 100).toFixed(2),
+  top: (rand() * 100).toFixed(2),
+  size: rand() > 0.85 ? 2 : 1, // whole pixels only
+  opacity: (0.15 + rand() * 0.35).toFixed(2),
+  twinkle: i % 15 === 0, // sirf 4 stars
+  delay: (rand() * 6).toFixed(1),
+}));
 
 export default function SpaceBackground() {
   return (
-    <div className="fixed inset-0 pointer-events-none -z-10 bg-[#000119] overflow-hidden">
-      {/* Nebula Glows */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px]" />
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#000119]"
+    >
+      {/* Nebula: static, no pulse */}
+      <div className="absolute left-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-purple-600/10 blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 h-[600px] w-[600px] rounded-full bg-blue-900/10 blur-[120px]" />
 
-      {/* Animated Stars */}
-      {[...Array(30)].map((_, i) => (
-        <motion.div
+      {STARS.map((s, i) => (
+        <span
           key={i}
-          className="absolute bg-white rounded-full opacity-20"
-          initial={{
-            x: typeof window !== "undefined" ? Math.random() * window.innerWidth : 0,
-            y: typeof window !== "undefined" ? Math.random() * window.innerHeight : 0,
-          }}
-          animate={{
-            y: [null, Math.random() * -100],
-            opacity: [0.2, 0.6, 0.2],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: Math.random() * 5 + 5,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+          className={`absolute rounded-full bg-white ${s.twinkle ? "star-twinkle" : ""}`}
           style={{
-            width: Math.random() * 3 + "px",
-            height: Math.random() * 3 + "px",
+            left: `${s.left}%`,
+            top: `${s.top}%`,
+            width: s.size,
+            height: s.size,
+            opacity: s.opacity,
+            animationDelay: s.twinkle ? `${s.delay}s` : undefined,
           }}
         />
       ))}
