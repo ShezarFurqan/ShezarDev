@@ -1,4 +1,4 @@
-import Moon from "@/components/Moon";
+import Moon from "@/components/MoonSun";
 
 export default function TestPage() {
   return (
