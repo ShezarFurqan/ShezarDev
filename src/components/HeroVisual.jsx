@@ -4,27 +4,42 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
-// Fades the top and bottom edges into the page background.
-// The left/right fade lives in the className below (it differs per breakpoint).
+// Change these two if your file names change
+const VIDEO_SRC = "/Hero-video.mp4";
+const IMAGE_SRC = "/6.jpg";
+
+// Top and bottom edges dissolve into the page background
 const FADE_Y =
   "linear-gradient(to bottom, transparent 0%, #000 14%, #000 74%, transparent 100%)";
 
 /**
- * Right side of the hero: "imagined" (sitting in space) -> "built" (typing).
- * - Large screens: the clip plays once, then holds its last frame (no loop).
- * - Phones, tablets, reduced motion, data saver: a still image only.
- * Files expected in /public/hero: hero.mp4, poster.webp, static.webp
+ * Right side of the hero: "imagined" (alone in space) -> "built" (typing).
+ *
+ * - The still image is ALWAYS rendered (fast, works everywhere, fallback if the
+ *   video fails or autoplay is blocked).
+ * - On large screens the video fades in on top of it, plays once and holds its
+ *   last frame. Phones, tablets, reduced-motion and data-saver users never
+ *   download the video.
+ *
+ * Side fade (via the className below):
+ *   phone      -> fades on the left only; the picture runs edge to edge
+ *   tablet     -> fades on both sides (picture is centered)
+ *   desktop    -> fades on the left only; the picture bleeds off the right edge
  */
 export default function HeroVisual({ className = "" }) {
   const reduce = useReducedMotion();
-
-  // null = not decided yet (server + first paint). Then "video" or "image".
-  const [mode, setMode] = useState(null);
+  const [canPlay, setCanPlay] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const wide = window.matchMedia("(min-width: 1024px)").matches;
-    const saveData = navigator.connection?.saveData === true;
-    setMode(wide && !reduce && !saveData ? "video" : "image");
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () =>
+      setCanPlay(
+        mq.matches && !reduce && navigator.connection?.saveData !== true
+      );
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, [reduce]);
 
   return (
@@ -36,16 +51,24 @@ export default function HeroVisual({ className = "" }) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.9, delay: 0.6, ease: "easeOut" }}
     >
-      <div className="absolute inset-0 [mask-image:linear-gradient(to_right,transparent_0%,#000_26%,#000_74%,transparent_100%)] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_20%)]">
+      <div className="absolute inset-0 [mask-image:linear-gradient(to_right,transparent_0%,#000_24%)] md:[mask-image:linear-gradient(to_right,transparent_0%,#000_20%,#000_80%,transparent_100%)] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_20%)]">
         <div
-          className="h-full w-full"
+          className="relative h-full w-full"
           style={{ maskImage: FADE_Y, WebkitMaskImage: FADE_Y }}
         >
-          {mode === "video" && (
+          <Image
+            src={IMAGE_SRC}
+            alt=""
+            width={720}
+            height={960}
+            priority
+            sizes="(min-width: 1536px) 56rem, (min-width: 1024px) 38rem, (min-width: 768px) 32rem, 100vw"
+            className="h-full w-full object-cover object-bottom"
+          />
+
+          {canPlay && (
             <video
-              className="h-full w-full object-cover object-bottom"
-              src="/Hero-video.mp4"
-              poster="/hero/poster.webp"
+              src={VIDEO_SRC}
               autoPlay
               muted
               playsInline
@@ -53,17 +76,10 @@ export default function HeroVisual({ className = "" }) {
               disablePictureInPicture
               tabIndex={-1}
               aria-hidden="true"
-            />
-          )}
-
-          {mode === "image" && (
-            <Image
-              src="/6.jpg"
-              alt=""
-              width={720}
-              height={1280}
-              sizes="(min-width: 1024px) 38rem, 90vw"
-              className="h-full w-full object-cover object-bottom"
+              onPlaying={() => setPlaying(true)}
+              className={`absolute inset-0 h-full w-full object-cover object-bottom transition-opacity duration-700 ${
+                playing ? "opacity-100" : "opacity-0"
+              }`}
             />
           )}
         </div>

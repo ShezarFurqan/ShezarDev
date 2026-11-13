@@ -13,7 +13,7 @@ const PROJECTS = [
   "TKA International",
 ];
 
-// Same text in both layers. Mobile: 4 lines, desktop: 2 lines.
+// Same text in both layers. Phone: 4 lines, tablet and up: 2 lines.
 function HeadlineText() {
   return (
     <>
@@ -40,19 +40,20 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative z-10 flex min-h-[calc(100svh-5.5rem)] items-center overflow-x-clip px-6 pb-16 md:px-11"
+      className="relative z-10 flex min-h-[calc(100svh-5.5rem)] items-center overflow-x-clip px-6 pb-12 pt-10 md:px-11 lg:h-[max(calc(100svh_-_4.25rem),34rem)] lg:min-h-0 lg:py-0 2xl:px-16"
     >
-      <div className="grid w-full lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-x-10">
+      {/* lg+: the hero is exactly one screen tall (screen height minus the navbar) */}
+      <div className="grid w-full lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-x-10">
         {/* Left: text */}
         <div>
           <motion.p
             {...rise(0.1)}
-            className="space-mono-bold mb-6 text-xs uppercase tracking-[0.3em] text-violet-400 md:text-sm"
+            className="space-mono-bold mb-5 text-[11px] uppercase tracking-[0.2em] text-violet-400 sm:text-xs sm:tracking-[0.3em] md:mb-6 md:text-sm"
           >
             Independent full-stack developer
           </motion.p>
 
-          <h1 className="space-grotesk relative w-fit text-[clamp(2.4rem,10.5vw,3.6rem)] font-bold leading-[1.05] tracking-tight md:text-[clamp(2.8rem,6.4vw,5.5rem)] lg:text-[clamp(2.6rem,4vw,4.75rem)]">
+          <h1 className="space-grotesk relative w-fit text-[clamp(2.5rem,11.5vw,3.75rem)] font-bold leading-[1.05] tracking-tight md:text-[clamp(2.8rem,6.4vw,5.5rem)] lg:text-[clamp(2.6rem,4vw,4.75rem)] 2xl:text-[clamp(4rem,4.6vw,7rem)]">
             {/* Layer 1: the idea (outline) */}
             <motion.span
               aria-hidden="true"
@@ -96,7 +97,7 @@ export default function Hero() {
 
           <motion.p
             {...rise(1.0)}
-            className="outfit mt-8 max-w-xl text-lg text-gray-400 md:text-xl"
+            className="outfit mt-6 max-w-xl text-lg text-gray-400 md:mt-8 md:text-xl 2xl:max-w-2xl 2xl:text-2xl"
           >
             I build websites and web applications, from the first idea to a
             working product.
@@ -105,7 +106,7 @@ export default function Hero() {
           <motion.a
             {...rise(1.2)}
             href="#work"
-            className="outfit group mt-10 inline-flex items-center gap-3 rounded-full bg-[#3d0eb2] px-7 py-3 text-base font-semibold transition-colors duration-300 hover:bg-violet-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-400"
+            className="outfit group mt-8 flex w-full items-center justify-center gap-3 rounded-full bg-[#3d0eb2] px-7 py-3.5 text-base font-semibold transition-colors duration-300 hover:bg-violet-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-400 sm:inline-flex sm:w-auto md:mt-10"
           >
             See the work
             <span
@@ -116,11 +117,11 @@ export default function Hero() {
             </span>
           </motion.a>
 
-          <motion.div {...rise(1.4)} className="mt-14 md:mt-20">
-            <p className="space-mono-bold text-[11px] uppercase tracking-[0.3em] text-gray-400">
+          <motion.div {...rise(1.4)} className="mt-10 md:mt-16 lg:mt-20">
+            <p className="space-mono-bold text-xs uppercase tracking-[0.3em] text-gray-300">
               Selected projects
             </p>
-            <ul className="outfit mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400">
+            <ul className="outfit mt-3 flex flex-wrap gap-x-5 gap-y-2 text-base text-gray-300 md:gap-x-6">
               {PROJECTS.map((p) => (
                 <li key={p}>{p}</li>
               ))}
@@ -128,8 +129,10 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: Imagined -> Built (bleeds to the right edge on large screens) */}
-        <HeroVisual className="mx-auto mt-14 w-[min(90vw,24rem)] lg:ml-0 lg:mr-[-2.75rem] lg:mt-0 lg:w-[min(42vw,38rem,calc((100svh_-_8rem)*0.75))] lg:justify-self-end" />
+        {/* Right: Imagined -> Built.
+            Phone: full width, edge to edge. Tablet: centered.
+            Desktop: as tall as the hero (one screen), bleeds off the right edge. */}
+        <HeroVisual className="-mx-6 mt-0 md:mx-auto md:mt-14 md:w-[min(80vw,32rem)] lg:ml-0 lg:mr-[-2.75rem] lg:mt-0 lg:h-[min(max(calc(100svh_-_4.25rem),34rem),66vw)] lg:w-auto lg:justify-self-end 2xl:mr-[-4rem]" />
       </div>
     </section>
   );

@@ -1,13 +1,24 @@
-
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
 import { TbSquareRoundedChevronsDown } from "react-icons/tb";
+
+const EASE_IO = [0.76, 0, 0.24, 1];
+const EASE_OUT = [0.22, 1, 0.36, 1];
+
+// The whole bar slides in on page load ("show"), and slides up out of view ("hide") while
+// the visitor scrolls down. Transform + opacity only, so it stays smooth on phones.
+const HEADER = {
+  hide: { y: "-110%", opacity: 0, transition: { duration: 0.35, ease: EASE_IO } },
+  show: { y: 0, opacity: 1, transition: { duration: 0.7, ease: EASE_OUT } },
+};
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [hidden, setHidden] = useState(false); // true while scrolling down
+  const [scrolled, setScrolled] = useState(false); // true once the page has moved off the top
+  const reduce = useReducedMotion();
 
   const menuItems = ["Home", "Work", "Services", "About"];
 
@@ -16,38 +27,86 @@ const Navbar = () => {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  // Scroll direction. Runs from Framer Motion's single scroll listener, and React only
+  // re-renders when `hidden` or `scrolled` actually flips, not on every scroll event.
+  const { scrollY } = useScroll();
+  const lastY = useRef(0);
+  useMotionValueEvent(scrollY, "change", (y) => {
+    setScrolled(y > 24);
+    const diff = y - lastY.current;
+    if (y < 80) {
+      setHidden(false); // always visible near the top
+      lastY.current = y;
+      return;
+    }
+    if (Math.abs(diff) < 6) return; // ignore tiny movements (small diffs add up before counting)
+    setHidden(diff > 0);
+    lastY.current = y;
+  });
+
+  // Never hide while the mobile menu is open, and never hide for reduced-motion visitors.
+  const hide = !reduce && hidden && !menuOpen;
+
+  // Entrance for each piece of the bar, one after the other (skipped for reduced motion).
+  const enter = (delay) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: -14 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.6, delay, ease: EASE_OUT },
+        };
+
   return (
     <>
-      <header className="relative z-[100] flex items-center justify-between px-6 pt-6 text-white md:px-11">
+      {/* sticky (not fixed): the bar still takes its normal space, so the Hero layout doesn't move */}
+      <motion.header
+        variants={HEADER}
+        initial={reduce ? false : "hide"}
+        animate={hide ? "hide" : "show"}
+        onFocusCapture={() => setHidden(false)} // keyboard users tabbing into the bar bring it back
+        className="sticky top-0 z-[100] flex items-center justify-between px-6 pt-6 text-white md:px-11"
+      >
+        {/* Frosted background: fades in only after scrolling, so the top of the page stays clean.
+            Absolute, so it adds no height. */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-x-0 top-0 -bottom-4 -z-10 border-b border-white/5 bg-[#000119]/75 backdrop-blur-md transition-opacity duration-300 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+        />
 
         {/* Logo */}
-        <a href="/" className="space-grotesk text-[26px] font-black uppercase">
+        <motion.a {...enter(0.25)} href="/" className="space-grotesk text-[26px] font-black uppercase">
           Shezar.dev
-        </a>
+        </motion.a>
 
         {/* Desktop Navigation */}
         <nav aria-label="Primary" className="hidden items-center gap-6 text-xl space-mono-bold md:flex">
-          {menuItems.map((item) => (
-            <a
+          {menuItems.map((item, i) => (
+            <motion.a
               key={item}
+              {...enter(0.35 + i * 0.07)}
               href={`#${item.toLowerCase()}`}
               className="transition-colors duration-300 hover:text-violet-400"
             >
               {item}
-            </a>
+            </motion.a>
           ))}
         </nav>
 
         {/* Desktop CTA */}
-        <a
+        <motion.a
+          {...enter(0.65)}
           href="#contact"
           className="outfit hidden rounded-4xl border border-[#3d0eb2] px-4 py-2 text-md font-semibold transition-colors duration-300 hover:bg-[#3d0eb2] md:block"
         >
           Let's Talk
-        </a>
+        </motion.a>
 
         {/* Mobile Burger */}
-        <button
+        <motion.button
+          {...enter(0.4)}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
@@ -56,8 +115,8 @@ const Navbar = () => {
           <TbSquareRoundedChevronsDown
             className={`text-[33px] transition-transform duration-500 ${menuOpen ? "rotate-180" : ""}`}
           />
-        </button>
-      </header>
+        </motion.button>
+      </motion.header>
 
 
       {/* Mobile Fullscreen Menu */}

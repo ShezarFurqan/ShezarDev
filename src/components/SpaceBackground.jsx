@@ -1,6 +1,9 @@
 // components/SpaceBackground.jsx
+// Server component: no client JS. Same stars as before, but the two glows are
+// now plain radial gradients instead of huge blur() filters, which look the
+// same and are much cheaper to paint (big win on phones).
 
-// Seeded PRNG: server aur client par same stars (no hydration mismatch)
+// Seeded PRNG: same stars on server and client (no hydration mismatch)
 function mulberry32(seed) {
   return function () {
     seed |= 0;
@@ -18,19 +21,40 @@ const STARS = Array.from({ length: 60 }, (_, i) => ({
   top: (rand() * 100).toFixed(2),
   size: rand() > 0.85 ? 2 : 1, // whole pixels only
   opacity: (0.15 + rand() * 0.35).toFixed(2),
-  twinkle: i % 15 === 0, // sirf 4 stars
+  twinkle: i % 15 === 0, // only 4 stars
   delay: (rand() * 6).toFixed(1),
 }));
+
+const VIOLET =
+  "radial-gradient(closest-side, rgba(147,51,234,0.10) 35%, rgba(147,51,234,0) 100%)";
+const BLUE =
+  "radial-gradient(closest-side, rgba(30,58,138,0.10) 35%, rgba(30,58,138,0) 100%)";
 
 export default function SpaceBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#000119]"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#000210]"
+      style={{ contain: "strict" }}
     >
-      {/* Nebula: static, no pulse */}
-      <div className="absolute left-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-purple-600/10 blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 h-[600px] w-[600px] rounded-full bg-blue-900/10 blur-[120px]" />
+      {/* Glow 1 (violet), upper left */}
+      <div
+        className="absolute left-1/4 top-1/4 -translate-x-1/4 -translate-y-1/4"
+        style={{
+          width: "min(740px, 120vw)",
+          height: "min(740px, 120vw)",
+          background: VIOLET,
+        }}
+      />
+      {/* Glow 2 (blue), lower right */}
+      <div
+        className="absolute bottom-1/4 right-1/4 translate-x-1/4 translate-y-1/4"
+        style={{
+          width: "min(840px, 135vw)",
+          height: "min(840px, 135vw)",
+          background: BLUE,
+        }}
+      />
 
       {STARS.map((s, i) => (
         <span
