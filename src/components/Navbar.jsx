@@ -87,7 +87,7 @@ const Navbar = () => {
             <motion.a
               key={item}
               {...enter(0.35 + i * 0.07)}
-              href={`#${item.toLowerCase()}`}
+              href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
               className="transition-colors duration-300 hover:text-violet-400"
             >
               {item}
@@ -170,7 +170,7 @@ const Navbar = () => {
                       duration: 0.5,
                       delay: 0.25 + index * 0.07,
                     }}
-                    href={`#${item.toLowerCase()}`}
+                    href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
                     onClick={() => setMenuOpen(false)}
                     className="space-grotesk block py-6 text-center text-2xl font-semibold tracking-wide transition-colors hover:text-violet-400"
                   >

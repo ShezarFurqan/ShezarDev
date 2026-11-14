@@ -33,7 +33,7 @@ export const PROJECTS = [
       "An e-commerce store for home and self-care products, featuring product discovery, wishlists, customer reviews, and a smooth shopping experience.",
     url: "https://www.lunorapk.com",
     desktopImage: "/lunora.png",
-    mobileImage: null,
+    mobileImage: "/lunora_mobile.png",
     intro:
       "A home and self-care e-commerce experience designed to make everyday shopping simple and accessible.",
     role: "Full-stack development",
@@ -74,7 +74,7 @@ export const PROJECTS = [
       "An e-commerce website built for a fashion brand, with product management and an admin panel for managing store content.",
     url: "https://ootddesigns.com",
     desktopImage: "/ootddesigns.png",
-    mobileImage: null,
+    mobileImage: "/ootddesigns_mobile.png",
     intro:
       "A fashion e-commerce experience built to bring a brand's products into an accessible online store.",
     role: "Website development",
@@ -114,7 +114,7 @@ export const PROJECTS = [
       "A luxury footwear e-commerce platform with product customization, reviews, order management, and an admin dashboard.",
     url: "https://scarpa.pk",
     desktopImage: "/scarpa.png",
-    mobileImage: null,
+    mobileImage: "/scarpa_mobile.png",
     intro:
       "A luxury footwear store focused on presenting products through a polished digital shopping experience.",
     role: "Full-stack development",
@@ -156,7 +156,7 @@ export const PROJECTS = [
       "A MERN-stack social media application inspired by Instagram, built with user-focused social features.",
     url: null,
     desktopImage: "/SS2.png",
-    mobileImage: null,
+    mobileImage: "/snapflow_mobile.png",
     intro:
       "A full-stack social application built to explore the architecture and functionality behind modern social platforms.",
     role: "Full-stack development",
