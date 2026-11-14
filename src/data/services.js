@@ -144,6 +144,35 @@ export const PROCESS = [
 export const PROCESS_NOTE =
   "How long a project takes depends on its scope, complexity and requirements. Once I understand what you need, I'll tell you what is realistic.";
 
+// Only projects from data/projects.js that genuinely support a service.
+// `note` is deliberately conservative and matches what the project data says.
+export const PROOF = [
+  {
+    slug: "lunora-pk",
+    services: ["ecommerce"],
+    note: "A custom Next.js store with Firebase-backed products and reviews, wishlists and cash on delivery.",
+  },
+  {
+    slug: "scarpa-pk",
+    services: ["ecommerce", "systems"],
+    note: "A footwear store with product customization, order management and an admin dashboard for uploads.",
+  },
+  {
+    slug: "ootd-designs",
+    services: ["ecommerce", "systems"],
+    note: "A fashion store with an admin panel for managing products and store content.",
+  },
+  {
+    slug: "tka-international",
+    services: ["website"],
+    note: "A responsive business website. I built the frontend; backend work was outside my scope.",
+  },
+  {
+    slug: "snapflow",
+    services: ["systems"],
+    note: "A full-stack project: React frontend, Node and Express APIs, MongoDB. Not a client system, but it shows how I build end to end.",
+  },
+];
 
 export const PRICING_FACTORS = [
   { title: "Project scope", text: "How many pages, screens or sections the project involves." },

@@ -21,6 +21,8 @@ const Navbar = () => {
   const reduce = useReducedMotion();
 
   const menuItems = ["Home", "Work", "Services", "About"];
+  // Absolute paths, so the links also work from /services and /work ("#work" only exists on the homepage)
+  const hrefFor = (item) => ({ Home: "/", Work: "/#work", Services: "/services", About: "/#about" })[item];
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -87,7 +89,7 @@ const Navbar = () => {
             <motion.a
               key={item}
               {...enter(0.35 + i * 0.07)}
-              href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
+              href={hrefFor(item)}
               className="transition-colors duration-300 hover:text-violet-400"
             >
               {item}
@@ -98,7 +100,7 @@ const Navbar = () => {
         {/* Desktop CTA */}
         <motion.a
           {...enter(0.65)}
-          href="#contact"
+          href="/#contact"
           className="outfit hidden rounded-4xl border border-[#3d0eb2] px-4 py-2 text-md font-semibold transition-colors duration-300 hover:bg-[#3d0eb2] md:block"
         >
           Let's Talk
@@ -170,7 +172,7 @@ const Navbar = () => {
                       duration: 0.5,
                       delay: 0.25 + index * 0.07,
                     }}
-                    href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
+                    href={hrefFor(item)}
                     onClick={() => setMenuOpen(false)}
                     className="space-grotesk block py-6 text-center text-2xl font-semibold tracking-wide transition-colors hover:text-violet-400"
                   >
@@ -186,7 +188,7 @@ const Navbar = () => {
               {/* Contact */}
               <div className="mt-8 text-center">
                 <a
-                  href="#contact"
+                  href="/#contact"
                   onClick={() => setMenuOpen(false)}
                   className="outfit inline-block rounded-full border border-violet-500/60 px-8 py-3 text-base font-semibold transition-colors hover:bg-violet-600"
                 >

@@ -7,16 +7,6 @@ import Footer from "@/components/Footer";
 export const metadata = ROOT_METADATA;
 export const viewport = ROOT_VIEWPORT;
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 
 export default function RootLayout({ children }) {
   return (
