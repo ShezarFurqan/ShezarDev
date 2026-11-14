@@ -7,9 +7,9 @@ export const CONTACT = {
   // TODO: paste your real profile URLs. A link with an empty href is hidden automatically,
   // so nothing fake is ever shown. For WhatsApp use https://wa.me/<number with country code, digits only>.
   links: [
-    { label: "LinkedIn", href: "" },
-    { label: "GitHub", href: "" },
-    { label: "WhatsApp", href: "" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/shezarfurqan/" },
+    { label: "GitHub", href: "https://github.com/ShezarFurqan" },
+    { label: "WhatsApp", href: "https://api.whatsapp.com/send/?phone=3186634031&text&type=phone_number&app_absent=0" },
   ],
 };
 

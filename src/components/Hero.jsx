@@ -53,8 +53,10 @@ export default function Hero() {
             Independent full-stack developer
           </motion.p>
 
-          <h1 className="space-grotesk relative w-fit text-[clamp(2.5rem,11.5vw,3.75rem)] font-bold leading-[1.05] tracking-tight md:text-[clamp(2.8rem,6.4vw,5.5rem)] lg:text-[clamp(2.6rem,4vw,4.75rem)] 2xl:text-[clamp(4rem,4.6vw,7rem)]">
-            {/* Layer 1: the idea (outline) */}
+          {/* The wrapper carries the type styles; the real <h1> inherits them (Tailwind resets h1 size and weight).
+              Only the h1 holds the headline text, so it appears once in the HTML. */}
+          <div className="space-grotesk relative w-fit text-[clamp(2.5rem,11.5vw,3.75rem)] font-bold leading-[1.05] tracking-tight md:text-[clamp(2.8rem,6.4vw,5.5rem)] lg:text-[clamp(2.6rem,4vw,4.75rem)] 2xl:text-[clamp(4rem,4.6vw,7rem)]">
+            {/* Layer 1: the idea (outline). Decoration only, and it sets the size of the block. */}
             <motion.span
               aria-hidden="true"
               className="block text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.4)]"
@@ -65,15 +67,15 @@ export default function Hero() {
               <HeadlineText />
             </motion.span>
 
-            {/* Layer 2: the built version (solid), revealed by the sweep */}
-            <motion.span
+            {/* Layer 2: the built version (solid), revealed by the sweep. This is the page's h1. */}
+            <motion.h1
               className="absolute inset-0 block text-white"
               initial={reduce ? false : { clipPath: "inset(-10% 100% -10% 0)" }}
               animate={{ clipPath: "inset(-10% -2% -10% 0)" }}
               transition={{ duration: reduce ? 0 : 1.1, delay: 0.45, ease: EASE }}
             >
               <HeadlineText />
-            </motion.span>
+            </motion.h1>
 
             {/* The light line that "builds" the text */}
             {!reduce && (
@@ -93,7 +95,7 @@ export default function Hero() {
                 }}
               />
             )}
-          </h1>
+          </div>
 
           <motion.p
             {...rise(1.0)}
