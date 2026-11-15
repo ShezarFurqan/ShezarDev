@@ -34,7 +34,7 @@ export default function SpaceBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#000210]"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#000415]"
       style={{ contain: "strict" }}
     >
       {/* Glow 1 (violet), upper left */}
@@ -46,15 +46,7 @@ export default function SpaceBackground() {
           background: VIOLET,
         }}
       />
-      {/* Glow 2 (blue), lower right */}
-      <div
-        className="absolute bottom-1/4 right-1/4 translate-x-1/4 translate-y-1/4"
-        style={{
-          width: "min(840px, 135vw)",
-          height: "min(840px, 135vw)",
-          background: BLUE,
-        }}
-      />
+     
 
       {STARS.map((s, i) => (
         <span
