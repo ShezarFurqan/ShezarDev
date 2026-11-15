@@ -4,42 +4,19 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
-// Change these two if your file names change
 const VIDEO_SRC = "/Hero-video.mp4";
 const IMAGE_SRC = "/6.jpg";
 
-// Top and bottom edges dissolve into the page background
 const FADE_Y =
   "linear-gradient(to bottom, transparent 0%, #000 14%, #000 74%, transparent 100%)";
 
-/**
- * Right side of the hero: "imagined" (alone in space) -> "built" (typing).
- *
- * - The still image is ALWAYS rendered (fast, works everywhere, fallback if the
- *   video fails or autoplay is blocked).
- * - On large screens the video fades in on top of it, plays once and holds its
- *   last frame. Phones, tablets, reduced-motion and data-saver users never
- *   download the video.
- *
- * Side fade (via the className below):
- *   phone      -> fades on the left only; the picture runs edge to edge
- *   tablet     -> fades on both sides (picture is centered)
- *   desktop    -> fades on the left only; the picture bleeds off the right edge
- */
 export default function HeroVisual({ className = "" }) {
   const reduce = useReducedMotion();
   const [canPlay, setCanPlay] = useState(false);
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () =>
-      setCanPlay(
-        mq.matches && !reduce && navigator.connection?.saveData !== true
-      );
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    setCanPlay(!reduce && navigator.connection?.saveData !== true);
   }, [reduce]);
 
   return (
@@ -63,7 +40,7 @@ export default function HeroVisual({ className = "" }) {
             height={960}
             priority
             sizes="(min-width: 1536px) 56rem, (min-width: 1024px) 38rem, (min-width: 768px) 32rem, 100vw"
-            className="h-full w-full object-cover object-bottom"
+            className="absolute inset-0 h-full w-full object-cover object-bottom"
           />
 
           {canPlay && (
@@ -77,6 +54,7 @@ export default function HeroVisual({ className = "" }) {
               tabIndex={-1}
               aria-hidden="true"
               onPlaying={() => setPlaying(true)}
+              onError={() => setPlaying(false)}
               className={`absolute inset-0 h-full w-full object-cover object-bottom transition-opacity duration-700 ${
                 playing ? "opacity-100" : "opacity-0"
               }`}

@@ -40,12 +40,12 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative z-10 flex min-h-[calc(100svh-5.5rem)] items-center overflow-x-clip px-6 pb-12 pt-10 md:px-11 lg:h-[max(calc(100svh_-_4.25rem),34rem)] lg:min-h-0 lg:py-0 2xl:px-16"
+      className="relative flex min-h-[calc(100svh-5.5rem)] items-start overflow-x-clip px-6 pb-12 pt-2 md:items-center md:px-11 md:pt-10 lg:h-[max(calc(100svh_-_4.25rem),34rem)] lg:min-h-0 lg:py-0 2xl:px-16"
     >
       {/* lg+: the hero is exactly one screen tall (screen height minus the navbar) */}
       <div className="grid w-full lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-x-10">
-        {/* Left: text */}
-        <div>
+        {/* Left: text. On phones the picture comes first and this block overlaps its soft bottom edge */}
+        <div className="relative z-[1] -mt-[4.5rem] md:mt-0">
           <motion.p
             {...rise(0.1)}
             className="space-mono-bold mb-5 text-[11px] uppercase tracking-[0.2em] text-violet-400 sm:text-xs sm:tracking-[0.3em] md:mb-6 md:text-sm"
@@ -119,7 +119,7 @@ export default function Hero() {
             </span>
           </motion.a>
 
-          <motion.div {...rise(1.4)} className="mt-10 md:mt-16 lg:mt-20">
+          <motion.div {...rise(1.4)} className="mt-10 border-t border-white/10 pt-6 md:mt-16 md:border-t-0 md:pt-0 lg:mt-20">
             <p className="space-mono-bold text-xs uppercase tracking-[0.3em] text-gray-300">
               Selected projects
             </p>
@@ -132,9 +132,9 @@ export default function Hero() {
         </div>
 
         {/* Right: Imagined -> Built.
-            Phone: full width, edge to edge. Tablet: centered.
+            Phone: first, full width, edge to edge. Tablet: centered, below the text.
             Desktop: as tall as the hero (one screen), bleeds off the right edge. */}
-        <HeroVisual className="-mx-6 mt-0 md:mx-auto md:mt-14 md:w-[min(80vw,32rem)] lg:ml-0 lg:mr-[-2.75rem] lg:mt-0 lg:h-[min(max(calc(100svh_-_4.25rem),34rem),66vw)] lg:w-auto lg:justify-self-end 2xl:mr-[-4rem]" />
+        <HeroVisual className="order-first -mx-6 mt-0 md:order-none md:mx-auto md:mt-14 md:w-[min(80vw,32rem)] lg:ml-0 lg:mr-[-2.75rem] lg:mt-0 lg:h-[min(max(calc(100svh_-_4.25rem),34rem),66vw)] lg:w-auto lg:justify-self-end 2xl:mr-[-4rem]" />
       </div>
     </section>
   );
